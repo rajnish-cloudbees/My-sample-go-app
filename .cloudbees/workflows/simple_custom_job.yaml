@@ -1,0 +1,36 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: CustomJob
+name: simple custom job
+description: Custom job demo
+inputs:
+  param1:
+    description: Param One
+    required: false
+handlers: 
+  init:
+    uses: docker://golang:1.20.3-alpine3.17
+    command: /bin/sh
+    args: |
+      -c "
+      echo \"Param1: $PARAM1\"
+      echo \"URL: $URL\"
+      echo \"Secret: $SECRET1\"
+      "
+    env: 
+      PARAM1: ${{ inputs.param1 }}
+      SECRET1: ${{ secrets.TEST_SECRET }}
+      URL: ${{ cloudbees.api.url }}
+  callback:
+    uses: docker://golang:1.20.3-alpine3.17
+    command: /bin/sh
+    args: |
+      -c "
+      echo \"Callback called\"
+      "
+  cancel:
+    uses: docker://golang:1.20.3-alpine3.17
+    command: /bin/sh
+    args: |
+      -c "
+      echo \"Cancel called\"
+      "
