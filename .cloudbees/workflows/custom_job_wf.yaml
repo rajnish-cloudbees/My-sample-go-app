@@ -1,10 +1,51 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: custom_job_workflow
+name: Workflow example
 on:
   workflow_dispatch:
 jobs:
-  custom-job:
-    delegates: rajnish-cloudbees/My-sample-go-app/simple_custom_job.yaml@main
+  build:
+    steps:
+      - uses: docker://golang:1.20.3-alpine3.17
+        name: Say hello
+        kind: test
+        shell: sh
+        run: |
+          echo "hello world"
+    needs: build-approval
+  build-approval:
     with:
-      param1: "param one value"
+      approvers: ""
+      disallowLaunchByUser: false
+      instructions: "Please provide inputs"
+      approvalInputs: |
+        string-value:
+          type: string
+        retry-count:
+          type: number
+        boolean:
+          type: boolean
+          default: false
+        Picklist:
+          type: choice
+          options:
+            - abc
+            - xyz
+    timeout-minutes: 4320
+    delegates: cloudbees-io/manual-approval/custom-job.yml@v1
+  use-approval-parameters:
+      needs:
+        - build-approval
+      steps:
+        - uses: docker://golang:1.20.3-alpine3.17
+          name: Echo inputs
+          shell: sh
+          run: |
+            echo "string-value: ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).string-value }}"
+            echo "retry-count: ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).retry-count }}"
+            echo "boolean: ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).boolean }}"
+            echo "Picklist: ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).Picklist }}"
+
+            echo "\
+            Comments:
+            ${{ fromJSON(needs.build-approval.outputs.approvalInputValues).string-value }}"
