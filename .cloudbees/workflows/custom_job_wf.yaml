@@ -5,6 +5,6 @@ on:
   workflow_dispatch:
 jobs:
   custom-job:
-    delegates: https://github.com/rajnish-cloudbees/My-sample-go-app/blob/main/.cloudbees/workflows/simple_custom_job.yaml
+    delegates: .cloudbees/workflows/simple_custom_job.yaml
     with:
       param1: "param one value"
