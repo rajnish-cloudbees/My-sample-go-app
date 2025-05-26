@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
     custom:
-        delegates: mluzcabrera/customjobpoll/topollillo.yaml
+        delegates: ajnish-cloudbees/My-sample-go-app/.cloudbees/workflows/simple_custom_job.yaml
         with:
             some-arg: ${{ vars.testpropertymlcb404 }}
         secrets:
