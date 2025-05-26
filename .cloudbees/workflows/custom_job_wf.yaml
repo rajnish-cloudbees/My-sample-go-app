@@ -8,4 +8,4 @@ jobs:
         delegates: rajnish-cloudbees/My-sample-go-app/.cloudbees/workflows/simple_custom_job.yaml
         with:
              param1: "asdf"
-        timeout-minutes: 0.1
+        timeout-minutes: 1
