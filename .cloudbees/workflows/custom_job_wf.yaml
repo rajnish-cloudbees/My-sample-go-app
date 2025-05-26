@@ -7,7 +7,5 @@ jobs:
     custom:
         delegates: rajnish-cloudbees/My-sample-go-app/.cloudbees/workflows/simple_custom_job.yaml
         with:
-            some-arg: ${{ vars.testpropertymlcb404 }}
-        secrets:
-            asecret: ${{ secrets.testsecret1 }}
+             param1: "asdf"
         timeout-minutes: 4320
