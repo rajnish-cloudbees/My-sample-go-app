@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    environment: QA
+    environment: pre-prod
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
-        #shell: sh
-        #run: |
-         # echo ${{ job.environment }}
+        shell: sh
+        run: |
+          echo ${{ job.environment }}
