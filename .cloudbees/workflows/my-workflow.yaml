@@ -1,20 +1,21 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My workflow
+name: manual
+
 on:
-  push:
-    branches:
-      - "**"
   workflow_dispatch:
     inputs:
-      environment:
+      environment: 
+        default: STAGING
+        required: true
+        description: environment test input
         type: string
+
 jobs:
-  build:
+  job:
     environment: ${{ inputs.environment }}
     steps:
-      - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
+      - id: step
+        uses: docker://alpine:3.17
         run: |
           echo ${{ job.environment }}
