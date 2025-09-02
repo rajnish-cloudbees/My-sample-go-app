@@ -6,6 +6,9 @@ on:
     branches:
       - "**"
   workflow_dispatch:
+    inputs:
+      environment:
+        type: string
 jobs:
   build:
     environment: ${{ inputs.environment }}
