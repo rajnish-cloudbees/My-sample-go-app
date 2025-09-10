@@ -17,5 +17,5 @@ jobs:
     steps:
       - id: step
         uses: docker://alpine:3.17
-        #run: |
-        #  echo ${{ job.environment }}
+        run: |
+         echo ${{ job.environment }}
