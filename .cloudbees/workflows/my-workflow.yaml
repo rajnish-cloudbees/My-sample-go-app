@@ -18,4 +18,4 @@ jobs:
       - id: step
         uses: docker://alpine:3.17
         run: |
-         echo ${{ job.environment }}
+         echo "Job Context Environment: ${{ job.environment }}"
