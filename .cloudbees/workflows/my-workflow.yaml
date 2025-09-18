@@ -23,4 +23,6 @@ jobs:
           echo "schedule triggered with PROD"
   workflow-trigger:
     if: ${{ cloudbees.event_name == 'workflow_dispatch' }}
-    uses: aspm-app-dashboard/mcp-test/.cloudbees/workflows/getenv.yaml
+    uses: rajnish-cloudbees/My-sample-go-app/.cloudbees/workflows/getenv.yaml
+    with:
+      ENV: ${{ inputs.ENV }}
