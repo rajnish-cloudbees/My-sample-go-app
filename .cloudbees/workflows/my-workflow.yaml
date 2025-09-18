@@ -1,21 +1,26 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: manual
-
+name: My workflow
 on:
   workflow_dispatch:
     inputs:
-      environment: 
-        default: STAGING
-        required: true
-        description: environment test input
-        type: string
-
+      ENV:
+        type: choice
+        options:
+          - QA
+          - PROD
+        default: QA
+  schedule:
+    - cron: 0,5,10,15,20,25,30,35,40,45,50,55 * * * *
 jobs:
-  job:
-    environment: ${{ inputs.environment }}
+  schedule-trigger:
+    if: ${{ cloudbees.event_name == 'schedule' }}
     steps:
-      - id: step
-        uses: docker://alpine:3.17
+      - name: schedule
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
         run: |
-         echo "Job Context Environment: ${{ job.environment }}"
+          echo "schedule triggered with PROD"
+  workflow-trigger:
+    if: ${{ cloudbees.event_name == 'workflow_dispatch' }}
+    uses: aspm-app-dashboard/mcp-test/.cloudbees/workflows/getenv.yaml
