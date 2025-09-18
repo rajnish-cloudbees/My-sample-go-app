@@ -5,11 +5,9 @@ on:
   workflow_call:
     inputs:
       ENV:
-        type: choice
-        options:
-          - QA
-          - PROD
+        type: string
         default: QA
+
 jobs:
   build:
     steps:
