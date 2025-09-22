@@ -1,28 +1,25 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My workflow
+name: build
+
 on:
+  push:
   workflow_dispatch:
-    inputs:
-      ENV:
-        type: choice
-        options:
-          - QA
-          - PROD
-        default: QA
-  # schedule:
-  #   - cron: 0,5,10,15,20,25,30,35,40,45,50,55 * * * *
+  schedule:
+    - cron: 0,5 * * * *
+
+permissions:
+  scm-token-own: read
+
 jobs:
-  # schedule-trigger:
-    # if: ${{ cloudbees.event_name == 'schedule' }}
-    # steps:
-    #   - name: schedule
-    #     uses: docker://golang:1.20.3-alpine3.17
-    #     shell: sh
-    #     run: |
-    #       echo "schedule triggered with PROD"
-  workflow-trigger:
-    if: ${{ cloudbees.event_name == 'workflow_dispatch' }}
-    uses: rajnish-cloudbees/My-sample-go-app/.cloudbees/workflows/getenv.yaml
-    with:
-      ENV: ${{ inputs.ENV }}
+  build:
+    steps:
+    - id: checkout
+      name: Get source code
+      uses: cloudbees-io/checkout@v1
+      
+    - id: context
+      name: Display context info
+      uses: docker://alpine:latest
+      run: |
+        echo 'branch: ${{ cloudbees.scm.branch }}, ref: ${{ cloudbees.scm.ref }}'
