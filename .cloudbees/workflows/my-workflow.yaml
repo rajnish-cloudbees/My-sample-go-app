@@ -5,7 +5,7 @@ name: build
 on:
   # pull_request:
   #   types: [opened, synchronize, reopened, ready_for_review]
- push:
+  push:
    branches:
      - "**"
   workflow_dispatch:
