@@ -12,8 +12,8 @@ on:
     tags:
       - "v*"
   workflow_dispatch: {}
-#  schedule:
-#     - cron: 0,5 * * * *
+  schedule:
+     - cron: 0,5 * * * *
 
 permissions:
   scm-token-own: read
