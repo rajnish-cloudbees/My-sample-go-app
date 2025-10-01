@@ -5,12 +5,15 @@ name: build
 on:
   # pull_request:
   #   types: [opened, synchronize, reopened, ready_for_review]
+#  push:
+#   branches:
+#     - "**"
   push:
-   branches:
-     - "**"
-  workflow_dispatch:
-  # schedule:
-  #   - cron: 0,5 * * * *
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+#  schedule:
+#     - cron: 0,5 * * * *
 
 permissions:
   scm-token-own: read
