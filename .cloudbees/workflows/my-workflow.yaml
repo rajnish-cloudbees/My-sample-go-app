@@ -3,9 +3,9 @@ kind: workflow
 name: build
 
 on:
-  push:
-    branches:
-      - "**"
+  # push:
+  #   branches:
+  #     - "**"
   workflow_dispatch:
   # schedule:
   #   - cron: 0,5 * * * *
