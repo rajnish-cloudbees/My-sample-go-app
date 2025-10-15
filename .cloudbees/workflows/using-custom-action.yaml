@@ -9,7 +9,7 @@ jobs:
   build:
     steps:
       - name: action test
-        uses: rajnish-cloudbees/My-sample-go-app/.cloudbees/actions/using-custom-action.yaml
+        uses: rajnish-cloudbees/My-sample-go-app/.cloudbees/actions/custom-action.yml
         with:
           arg-1: |
             Optimus Prime
