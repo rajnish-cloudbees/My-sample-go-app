@@ -1,15 +1,35 @@
+# apiVersion: automation.cloudbees.io/v1alpha1
+# kind: workflow
+# name: My automation
+
+# on:
+#   workflow_dispatch: {}
+
+# jobs:
+#   build:
+#     steps:
+#       - name: action test
+#         uses: https://bitbucket.saas-preprod.beescloud.com/projects/TEST/repos/test-bbcd-ak/browse/.cloudbees/actions/custom-action@main
+#         with:
+#           arg-1: |
+#             Optimus Prime
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My automation
-
+name: My workflow
 on:
-  workflow_dispatch: {}
-
+  workflow_dispatch:
+  
+permissions:
+  id-token: write
+  
 jobs:
   build:
     steps:
-      - name: action test
-        uses: https://bitbucket.saas-preprod.beescloud.com/projects/TEST/repos/test-bbcd-ak/browse/.cloudbees/actions/custom-action@main
+          
+      - name: Login to AWS
+        uses: cloudbees-io/configure-aws-credentials@v1
+        id: aws-login
         with:
-          arg-1: |
-            Optimus Prime
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::020229604682:role/preprod-cloudbees-infra-mgmt
+          role-duration-seconds: "3600"
