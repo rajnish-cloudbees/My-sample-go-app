@@ -1,0 +1,15 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My automation
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    steps:
+      - name: action test
+        uses: https://bitbucket.saas-preprod.beescloud.com/projects/CT/repos/wf2-java-hello-world/.cloudbees/actions
+        with:
+          arg-1: |
+            Optimus Prime
