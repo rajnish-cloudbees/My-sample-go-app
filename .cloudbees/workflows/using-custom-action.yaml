@@ -9,7 +9,7 @@ jobs:
   build:
     steps:
       - name: action test
-        uses: https://bitbucket.saas-preprod.beescloud.com/scm/ct/wf2-java-hello-world.git/.cloudbees/actions/custom-action@main
+        uses: https://bitbucket.saas-preprod.beescloud.com/scm/test/test-bbcd-ak.git/.cloudbees/actions/custom-action@main
         with:
           arg-1: |
             Optimus Prime
