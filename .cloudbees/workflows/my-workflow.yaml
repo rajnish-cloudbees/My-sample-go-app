@@ -26,7 +26,7 @@ jobs:
 
     - id: configured-credentials
       name: configured-credentials
-      uses: cloudbees-io/configure-git-global-credentials@v1
+      uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
 
     - id: go-build
       uses: docker://golang:latest
