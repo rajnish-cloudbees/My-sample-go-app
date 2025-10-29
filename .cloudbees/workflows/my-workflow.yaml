@@ -15,6 +15,7 @@ on:
 
 permissions:
   scm-token-own: read
+  scm-token-org: read
 
 jobs:
   build:
@@ -26,6 +27,8 @@ jobs:
     - id: configured-credentials
       name: configured-credentials
       uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
+      with:
+        repositories: rajnish-cloudbees/sample-empty-repo
 
     - id: go-build
       uses: docker://golang:latest
