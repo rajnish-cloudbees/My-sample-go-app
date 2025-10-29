@@ -19,9 +19,13 @@ jobs:
     - id: checkout
       name: Get source code
       uses: cloudbees-io/checkout@v1
-      
-    - id: context
-      name: Display context info
-      uses: docker://alpine:latest
+
+    - id: configured-credentials
+      name: configured-credentials
+      uses: cloudbees-io/configure-git-global-credentials@v1
+
+    - id: go build
+      uses: docker://golang:1.20.3-alpine3.17
       run: |
-        echo 'branch: ${{ cloudbees.scm.branch }}, ref: ${{ cloudbees.scm.ref }}'
+        go version && go test -v ./...
+

@@ -11,11 +11,13 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	c "github.com/rajnish-cloudbees/sample-common/util"
 )
 
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
+	c.Add(2, 3) // Using the Add function from the imported package
 
 	router.GET("/", func(c *gin.Context) {
 		sha := getCommitSha()

@@ -1,8 +1,11 @@
 module demo-app
 
-go 1.19
+go 1.24.4
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/gin-gonic/gin v1.9.1
+	github.com/rajnish-cloudbees/sample-common v0.0.0-20251029172451-7e505e7498ca
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
