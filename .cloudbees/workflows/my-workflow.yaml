@@ -28,7 +28,7 @@ jobs:
       name: configured-credentials
       uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
       env:
-        RUNNER_DEBUG: 1
+        RUNNER_DEBUG: "1"
       with:
         repositories: rajnish-cloudbees/sample-common
 
