@@ -27,7 +27,7 @@ jobs:
       name: configured-credentials
       uses: cloudbees-io/configure-git-global-credentials@v1
 
-    - id: go build
+    - id: go-build
       uses: docker://golang:1.20.3-alpine3.17
       run: |
         go version && go test -v ./...
