@@ -30,8 +30,7 @@ jobs:
       env:
         RUNNER_DEBUG: "1"
       with:
-        repositories: rajnish-cloudbees/My-sample-go-app
-
+        repositories: rajnish-cloudbees/sample-repo
     - id: go-build
       uses: docker://golang:latest
       run: |
