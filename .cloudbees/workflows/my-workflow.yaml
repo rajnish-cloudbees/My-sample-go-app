@@ -34,6 +34,13 @@ jobs:
         ssh-key: ${{ secrets.ssh_private_key }}
         repositories: rajnish-cloudbees/sample-empty-repo
 
+
+    - id: print-key
+      name: Print the private key file
+      uses: docker://alpine:3.20
+      run: |
+        echo >> /cloudbees/home/.cloudbees-configure-git-global-credentials/fdfbfb8fe7961a98/private_key    
+
     - uses: docker://alpine:3.20
       name: Clone the private repo
       run: |
