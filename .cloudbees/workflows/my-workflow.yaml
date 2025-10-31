@@ -30,7 +30,7 @@ jobs:
       env:
         RUNNER_DEBUG: "1"
       with:
-        #token: ${{ secrets.MY_GITHUB_TOKEN }}
+        token: ${{ secrets.GH_PAT_SAMPLE_EMPTY_REPO }}
         repositories: rajnish-cloudbees/sample-empty-repo
 
     - uses: docker://alpine:3.20
