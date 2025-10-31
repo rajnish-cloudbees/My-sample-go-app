@@ -33,7 +33,7 @@ jobs:
         repositories: rajnish-cloudbees/sample-common
 
     - uses: docker://alpine:3.20
-      name: lone the private repo
+      name: Clone the private repo
       run: |
         apk update
         apk add git
@@ -45,7 +45,7 @@ jobs:
       uses: docker://golang:latest
       run: |
         go version
-#        go test -v ./...
+        go test -v ./...
 
 
  
