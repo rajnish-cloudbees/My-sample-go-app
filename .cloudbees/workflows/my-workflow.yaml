@@ -41,12 +41,17 @@ jobs:
         echo "=============== CLONE REPO ================================"
         git clone https://github.com/rajnish-cloudbees/sample-common.git
 
-    - id: go-build
+    - id: go-version
       uses: docker://golang:latest
       run: |
         go version
-        go test -v ./...
+#        go test -v ./...
 
+    - id: unit-test
+      name: Run Unit test
+      uses: calculi-corp/cb-internal-shared-actions/build@v3
+      with:
+        run-unit-test: "true"
 
  
 
