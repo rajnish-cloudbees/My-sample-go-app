@@ -38,6 +38,8 @@ jobs:
     - id: print-key
       name: Print the private key file
       uses: docker://alpine:3.20
+      env:
+        RUNNER_DEBUG: "1"
       run: |
         echo >> /cloudbees/home/.cloudbees-configure-git-global-credentials/92a18722da6ff9dc/private_key
 
