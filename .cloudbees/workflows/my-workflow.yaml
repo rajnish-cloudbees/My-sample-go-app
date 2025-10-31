@@ -32,8 +32,20 @@ jobs:
       with:
         repositories: rajnish-cloudbees/sample-common
 
+    - uses: docker://alpine:3.20
+      name: lone the private repo
+      run: |
+        apk update
+        apk add git
+        apk add openssh-client
+        echo "=============== CLONE REPO ================================"
+        git clone https://github.com/rajnish-cloudbees/sample-common.git
+
     # - id: go-build
     #   uses: docker://golang:latest
     #   run: |
     #     go version && go test -v ./...
+
+
+ 
 
