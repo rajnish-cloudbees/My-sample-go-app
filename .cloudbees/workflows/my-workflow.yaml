@@ -26,8 +26,8 @@ jobs:
 
     - id: configured-credentials
       name: configured-credentials
-      #uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
-      uses: cloudbees-io/configure-git-global-credentials@v1
+      uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
+      #uses: cloudbees-io/configure-git-global-credentials@v1
       env:
         RUNNER_DEBUG: "1"
       with:
