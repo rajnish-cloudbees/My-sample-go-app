@@ -30,7 +30,8 @@ jobs:
       env:
         RUNNER_DEBUG: "1"
       with:
-        repositories: rajnish-cloudbees/sample-common
+        #token: ${{ secrets.MY_GITHUB_TOKEN }}
+        repositories: rajnish-cloudbees/sample-empty-repo
 
     - uses: docker://alpine:3.20
       name: Clone the private repo
@@ -41,15 +42,9 @@ jobs:
         echo "=============== CLONE REPO ================================"
         git clone https://github.com/rajnish-cloudbees/sample-common.git
 
-    - id: go-version
-      uses: docker://golang:latest
-      run: |
-        go version
-#        go test -v ./...
+#    - id: go-version
+#      uses: docker://golang:latest
+#      run: |
+#        go version && go test -v ./...
 
- 
-    # - id: unit-test-scan
-    #   name: Unit tests and static code analysis
-    #   uses: calculi-corp/cb-internal-shared-actions/go-test@go-test/v1
-    #   with:
-    #     min-coverage: "83.0"
+
