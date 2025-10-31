@@ -41,7 +41,7 @@ jobs:
         apk add git
         apk add openssh-client
         echo "=============== CLONE REPO ================================"
-        git clone https://github.com/rajnish-cloudbees/sample-empty-repo.git
+        git clone https://github.com/rajnish-cloudbees/sample-empty-repo
 
 #    - id: go-version
 #      uses: docker://golang:latest
