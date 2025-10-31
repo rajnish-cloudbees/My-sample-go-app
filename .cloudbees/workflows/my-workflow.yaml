@@ -41,10 +41,11 @@ jobs:
         echo "=============== CLONE REPO ================================"
         git clone https://github.com/rajnish-cloudbees/sample-common.git
 
-    # - id: go-build
-    #   uses: docker://golang:latest
-    #   run: |
-    #     go version && go test -v ./...
+    - id: go-build
+      uses: docker://golang:latest
+      run: |
+        go version
+#        go test -v ./...
 
 
  
