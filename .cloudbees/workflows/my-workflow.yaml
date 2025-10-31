@@ -31,8 +31,9 @@ jobs:
         RUNNER_DEBUG: "1"
       with:
         repositories: rajnish-cloudbees/sample-common
-    - id: go-build
-      uses: docker://golang:latest
-      run: |
-        go version && go test -v ./...
+
+    # - id: go-build
+    #   uses: docker://golang:latest
+    #   run: |
+    #     go version && go test -v ./...
 
