@@ -33,14 +33,14 @@ jobs:
         #token: ${{ secrets.MY_GITHUB_TOKEN }}
         repositories: rajnish-cloudbees/sample-empty-repo
 
-#    - uses: docker://alpine:3.20
-#      name: Clone the private repo
-#      run: |
-#        apk update
-#        apk add git
-#        apk add openssh-client
-#        echo "=============== CLONE REPO ================================"
-#        git clone https://github.com/rajnish-cloudbees/sample-common.git
+    - uses: docker://alpine:3.20
+      name: Clone the private repo
+      run: |
+        apk update
+        apk add git
+        apk add openssh-client
+        echo "=============== CLONE REPO ================================"
+        git clone https://github.com/rajnish-cloudbees/sample-empty-repo.git
 
 #    - id: go-version
 #      uses: docker://golang:latest
