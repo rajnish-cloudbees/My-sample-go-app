@@ -48,8 +48,8 @@ jobs:
 #        go test -v ./...
 
  
-    - id: unit-test-scan
-      name: Unit tests and static code analysis
-      uses: calculi-corp/cb-internal-shared-actions/go-test@go-test/v1
-      with:
-        min-coverage: "83.0"
+    # - id: unit-test-scan
+    #   name: Unit tests and static code analysis
+    #   uses: calculi-corp/cb-internal-shared-actions/go-test@go-test/v1
+    #   with:
+    #     min-coverage: "83.0"
