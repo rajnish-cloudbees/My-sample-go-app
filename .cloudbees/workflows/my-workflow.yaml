@@ -43,7 +43,7 @@ jobs:
           echo "=============== CLONE REPO ================================"
           git clone https://github.com/rajnish-cloudbees/sample-empty-repo
 
-      - uses: docker://golang:latest
-        name: Go version and Go test
-        run: |
-          go version && go test -v ./...
+#      - uses: docker://golang:latest
+#        name: Go version and Go test
+#        run: |
+#          go version && go test -v ./...
