@@ -26,13 +26,14 @@ jobs:
 
       - id: configured-credentials
         name: configured-credentials
-        #uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
-        uses: cloudbees-io/configure-git-global-credentials@v1
+        uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
+        #uses: cloudbees-io/configure-git-global-credentials@v1
         env:
           RUNNER_DEBUG: "1"
         with:
-          token: ${{ secrets.GH_PAT_SAMPLE_EMPTY_REPO }}
+          ssh-key: ${{ secrets.ssh_private_key }}
           repositories: rajnish-cloudbees/sample-empty-repo
+
 
       - uses: docker://alpine:3.20
         name: Clone the private repo
@@ -42,8 +43,3 @@ jobs:
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
           git clone https://github.com/rajnish-cloudbees/sample-empty-repo
-
-#      - uses: docker://golang:latest
-#        name: Go version and Go test
-#        run: |
-#          go version && go test -v ./...
