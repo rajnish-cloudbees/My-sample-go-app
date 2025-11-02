@@ -20,41 +20,31 @@ permissions:
 jobs:
   build:
     steps:
-    - id: checkout
-      name: Get source code
-      uses: cloudbees-io/checkout@v1
+      - id: checkout
+        name: Get source code
+        uses: cloudbees-io/checkout@v1
 
-    - id: configured-credentials
-      name: configured-credentials
-      #uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
-      uses: cloudbees-io/configure-git-global-credentials@v1
-      env:
-        RUNNER_DEBUG: "1"
-      with:
-        ssh-key: ${{ secrets.ssh_private_key }}
-        repositories: rajnish-cloudbees/sample-empty-repo
+      - id: configured-credentials
+        name: configured-credentials
+        uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@main
+        #uses: cloudbees-io/configure-git-global-credentials@v1
+        env:
+          RUNNER_DEBUG: "1"
+        with:
+          token: ${{ secrets.GH_PAT_SAMPLE_EMPTY_REPO }}
+          repositories: rajnish-cloudbees/sample-empty-repo
 
+      - uses: docker://alpine:3.20
+        name: Clone the private repo
+        run: |
+          apk update
+          apk add git
+          apk add openssh-client
+          echo "=============== CLONE REPO ================================"
+          git clone https://github.com/rajnish-cloudbees/sample-empty-repo
 
-    - id: print-key
-      name: Print the private key file
-      uses: docker://alpine:3.20
-      env:
-        RUNNER_DEBUG: "1"
-      run: |
-        echo >> /cloudbees/home/.cloudbees-configure-git-global-credentials/92a18722da6ff9dc/private_key
-
-    - uses: docker://alpine:3.20
-      name: Clone the private repo
-      run: |
-        apk update
-        apk add git
-        apk add openssh-client
-        echo "=============== CLONE REPO ================================"
-        git clone https://github.com/rajnish-cloudbees/sample-empty-repo
-
-#    - id: go-version
-#      uses: docker://golang:latest
-#      run: |
-#        go version && go test -v ./...
-
-
+      - id: go-version and go-test
+        name: Go version and Go test
+        uses: docker://golang:latest
+        run: |
+          go version && go test -v ./...
