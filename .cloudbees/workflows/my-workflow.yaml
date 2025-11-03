@@ -41,4 +41,4 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/sample-common.git
+          git clone https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/sample-common
