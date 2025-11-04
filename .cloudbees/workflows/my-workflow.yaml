@@ -31,7 +31,7 @@ jobs:
         env:
           RUNNER_DEBUG: "1"
         with:
-          token: ${{ secrets.bb_dc_http_access_token_sample_common }}
+          #token: ${{ secrets.bb_dc_http_access_token_sample_common }}
           repositories: https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/sample-common
 
       - uses: docker://alpine:3.20
