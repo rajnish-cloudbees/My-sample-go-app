@@ -32,7 +32,7 @@ jobs:
           RUNNER_DEBUG: "1"
         with:
           #token: ${{ secrets.bb_dc_http_access_token_sample_common }}
-          repositories: https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/sample-common
+          repositories: rajnish-cloudbees/sample-common
 
       - uses: docker://alpine:3.20
         name: Clone the private repo
@@ -41,4 +41,4 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/sample-common
+          git clone https://github.com/rajnish-cloudbees/sample-common
