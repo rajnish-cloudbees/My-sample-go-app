@@ -31,8 +31,8 @@ jobs:
         env:
           RUNNER_DEBUG: "1"
         with:
-          #token: ${{ secrets.bb_dc_http_access_token_sample_common }}
-          repositories: rajnish-cloudbees/sample-common
+          token: ${{ secrets.GH_PAT_SAMPLE_EMPTY_REPO }}
+          repositories: rajnish-cloudbees/sample-empty-repo
 
       - uses: docker://alpine:3.20
         name: Clone the private repo
@@ -41,4 +41,4 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://github.com/rajnish-cloudbees/sample-common
+          git clone https://github.com/rajnish-cloudbees/sample-empty-repo
