@@ -33,6 +33,14 @@ jobs:
           #ssh-key: ${{ secrets.ssh_private_key }}
           repositories: https://github.com/rajnish-cloudbees/sample-common
 
+
+      - uses: docker://alpine:3.20
+        name: cat git-config
+        run: |
+          # we can use this for debugging
+          cat /cloudbees/home/.gitconfig
+          
+
       - uses: docker://alpine:3.20
         name: Clone the private repo
         run: |
