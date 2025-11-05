@@ -30,8 +30,8 @@ jobs:
         env:
           RUNNER_DEBUG: "1"
         with:
-          #ssh-key: ${{ secrets.ssh_private_key }}
-          repositories: https://github.com/rajnish-cloudbees
+          ssh-key: ${{ secrets.ssh_private_key }}
+          repositories: git@github.com:rajnish-cloudbees
 
       - uses: docker://alpine:3.20
         name: cat git-config
