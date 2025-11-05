@@ -47,7 +47,7 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://github.com/rajnish-cloudbees/sample-common
+          git clone git@github.com:rajnish-cloudbees/sample-common.git
 
       - uses: docker://alpine:3.20
         name: Clone the private repo
@@ -56,4 +56,4 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://github.com/rajnish-cloudbees/my-sample-go-app
+          git clone git@github.com:rajnish-cloudbees/My-sample-go-app.git
