@@ -31,7 +31,7 @@ jobs:
           RUNNER_DEBUG: "1"
         with:
           #ssh-key: ${{ secrets.ssh_private_key }}
-          repositories: https://github.com/rajnish-cloudbees/My-sample-go-app
+          repositories: https://github.com/rajnish-cloudbees/sample-common
 
       - uses: docker://alpine:3.20
         name: Clone the private repo
