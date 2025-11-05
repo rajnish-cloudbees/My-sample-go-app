@@ -40,4 +40,4 @@ jobs:
           apk add git
           apk add openssh-client
           echo "=============== CLONE REPO ================================"
-          git clone https://github.com/rajnish-cloudbees/sample-common
+          git clone https://github.com/rajnish-cloudbees/sample-common.git
