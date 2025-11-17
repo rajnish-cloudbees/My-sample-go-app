@@ -10,7 +10,7 @@ on:
 
 jobs:
   custom:
-    delegates: https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/my-sample-go-app/.cloudbees/workflows/my-workflow.yaml
+    delegates: https://github.beescloud.com/Hari-Test-Org/GHE_TEST/.cloudbees/workflows/customjob.yaml
     with:
       param1: "asdf"
     timeout-minutes: 3
