@@ -10,7 +10,7 @@ on:
 
 jobs:
   custom:
-    delegates: rajnish-cloudbees/test-integration/.cloudbees/custom.yaml
+    delegates: https://bitbucket.org/rajnish-cloudbees/my-sample-go-app/.cloudbees/workflows/my-workflow.yaml
     with:
       param1: "asdf"
     timeout-minutes: 3
