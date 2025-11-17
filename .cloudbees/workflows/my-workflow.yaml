@@ -1,59 +1,86 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: build
+name: My workflow
 
 on:
-  pull_request:
-    branches:
-      - "**"
   push:
     branches:
       - "**"
   workflow_dispatch:
-  # schedule:
-  #   - cron: 0,5 * * * *
-
-permissions:
-  scm-token-own: read
-  scm-token-org: read
 
 jobs:
+  custom:
+    delegates: https://bitbucket.saas-preprod.beescloud.com/scm/test-bbdc-unify/my-sample-go-app/.cloudbees/workflows/my-workflow.yaml
+    with:
+      param1: "asdf"
+    timeout-minutes: 3
+
   build:
+    needs: custom
     steps:
-      - id: checkout
-        name: Get source code
-        uses: cloudbees-io/checkout@v1
-
-      - id: configured-credentials
-        name: configured-credentials
-        uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@CBP-18304
-        env:
-          RUNNER_DEBUG: "1"
-        with:
-          ssh-key: ${{ secrets.ssh_private_key }}
-          repositories: git@github.com:rajnish-cloudbees
-
-      - uses: docker://alpine:3.20
-        name: cat git-config
+      - name: Say hello
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
         run: |
-          # we can use this for debugging
-          cat /cloudbees/home/.gitconfig
-          
+          echo "hello world ${{ needs.custom.outputs.result }}"
 
-      - uses: docker://alpine:3.20
-        name: Clone the private repo
-        run: |
-          apk update
-          apk add git
-          apk add openssh-client
-          echo "=============== CLONE REPO ================================"
-          git clone git@github.com:rajnish-cloudbees/sample-common.git
 
-      - uses: docker://alpine:3.20
-        name: Clone the private repo
-        run: |
-          apk update
-          apk add git
-          apk add openssh-client
-          echo "=============== CLONE REPO ================================"
-          git clone git@github.com:rajnish-cloudbees/My-sample-go-app.git
+#apiVersion: automation.cloudbees.io/v1alpha1
+#kind: workflow
+#name: build
+#
+#on:
+#  pull_request:
+#    branches:
+#      - "**"
+#  push:
+#    branches:
+#      - "**"
+#  workflow_dispatch:
+#  # schedule:
+#  #   - cron: 0,5 * * * *
+#
+#permissions:
+#  scm-token-own: read
+#  scm-token-org: read
+#
+#jobs:
+#  build:
+#    steps:
+#      - id: checkout
+#        name: Get source code
+#        uses: cloudbees-io/checkout@v1
+#
+#      - id: configured-credentials
+#        name: configured-credentials
+#        uses: cloudbees-io/configure-git-global-credentials/.cloudbees/testing@CBP-18304
+#        env:
+#          RUNNER_DEBUG: "1"
+#        with:
+#          ssh-key: ${{ secrets.ssh_private_key }}
+#          repositories: git@github.com:rajnish-cloudbees
+#
+#      - uses: docker://alpine:3.20
+#        name: cat git-config
+#        run: |
+#          # we can use this for debugging
+#          cat /cloudbees/home/.gitconfig
+#
+#
+#      - uses: docker://alpine:3.20
+#        name: Clone the private repo
+#        run: |
+#          apk update
+#          apk add git
+#          apk add openssh-client
+#          echo "=============== CLONE REPO ================================"
+#          git clone git@github.com:rajnish-cloudbees/sample-common.git
+#
+#      - uses: docker://alpine:3.20
+#        name: Clone the private repo
+#        run: |
+#          apk update
+#          apk add git
+#          apk add openssh-client
+#          echo "=============== CLONE REPO ================================"
+#          git clone git@github.com:rajnish-cloudbees/My-sample-go-app.git
