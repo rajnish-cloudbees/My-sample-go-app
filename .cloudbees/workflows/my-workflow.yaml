@@ -74,7 +74,7 @@ jobs:
          apk add git
          apk add openssh-client
          echo "=============== CLONE REPO ================================"
-         git clone git@github.com:rajnish-cloudbees/sample-common.git
+         git clone git@github.com:cb-nsrinivasa/tilt-chk.git
 
      - uses: docker://alpine:3.20
        name: Clone the private repo
