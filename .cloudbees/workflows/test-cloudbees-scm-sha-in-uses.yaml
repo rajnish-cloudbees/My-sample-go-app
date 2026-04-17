@@ -4,6 +4,7 @@ name: CBP-25252-cloudbees-scm-sha-in-uses
 
 on:
   push:
+  workflow_dispatch: {}  
 
 # -----------------------------------------------------------------------
 # CBP-25252: Verify cloudbees.scm.sha is supported in the 'uses' field
