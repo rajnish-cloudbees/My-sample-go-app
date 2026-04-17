@@ -36,6 +36,8 @@ jobs:
 
       - name: Configure container registry for ECR
         uses: cloudbees-io/configure-ecr-credentials@v1
+        with:
+          registries: "020229604682"
 
       - name: Build and push SHA-tagged image
         uses: cloudbees-io/kaniko@v1
