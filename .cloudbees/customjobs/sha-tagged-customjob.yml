@@ -1,0 +1,30 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: CustomJob
+name: sha-tagged-customjob
+description: Custom job that uses cloudbees.scm.sha to reference a container image
+
+inputs:
+  message:
+    required: false
+    default: "hello from custom job"
+outputs:
+  result:
+    value: ${{ handlers.init.outputs.result }}
+
+handlers:
+  init:
+    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    command: /bin/sh
+    args: -c "echo \"Custom Job DSL - cloudbees.scm.sha resolved in handler uses\" && echo \"$MESSAGE\" >> $CLOUDBEES_OUTPUTS/result"
+    env:
+      MESSAGE: ${{ inputs.message }}
+
+  callback:
+    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    command: /bin/sh
+    args: -c "echo callback handler with cloudbees.scm.sha"
+
+  cancel:
+    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    command: /bin/sh
+    args: -c "echo cancel handler with cloudbees.scm.sha"
