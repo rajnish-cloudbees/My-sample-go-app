@@ -9,6 +9,9 @@ on:
 # -----------------------------------------------------------------------
 # CBP-25252: Verify cloudbees.scm.sha is supported in the 'uses' field
 #
+# Strategy: First build a trivial image tagged with cloudbees.scm.sha,
+# then reference that image via cloudbees.scm.sha in each DSL context.
+#
 # Acceptance criteria:
 #   1. Workflow DSL - regular steps        (job: regular-step)
 #   2. Workflow DSL - sidecar services     (job: sidecar-service)
@@ -18,61 +21,73 @@ on:
 
 jobs:
   # -------------------------------------------------------------------
+  # Build a test image tagged with the commit SHA
+  # -------------------------------------------------------------------
+  build-image:
+    steps:
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+
+      - name: Create a minimal Dockerfile
+        uses: docker://alpine:3.18
+        run: |
+          echo 'FROM alpine:3.18' > Dockerfile
+          echo 'CMD ["echo", "CBP-25252 test image"]' >> Dockerfile
+
+      - name: Configure container registry for ECR
+        uses: cloudbees-io/configure-ecr-credentials@v1
+
+      - name: Build and push SHA-tagged image
+        uses: cloudbees-io/kaniko@v1
+        with:
+          destination: 020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
+          context: .
+          dockerfile: Dockerfile
+
+  # -------------------------------------------------------------------
   # AC 1: Workflow DSL - regular step uses
   # -------------------------------------------------------------------
   regular-step:
+    needs: build-image
     steps:
-      - name: Verify cloudbees.scm.sha resolves in uses
-        uses: docker://alpine:${{ cloudbees.scm.sha }}
-        env:
-          CLOUDBEES_SCM_SHA: ${{ cloudbees.scm.sha }}
+      - name: Verify cloudbees.scm.sha resolves in step uses
+        uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
         run: |
           echo "=== AC 1: Regular Step ==="
-          echo "cloudbees.scm.sha = ${CLOUDBEES_SCM_SHA}"
-
-          if [ -z "${CLOUDBEES_SCM_SHA}" ]; then
-            echo "FAIL: cloudbees.scm.sha is empty"
-            exit 1
-          fi
           echo "PASS: cloudbees.scm.sha resolved in regular step uses"
 
   # -------------------------------------------------------------------
   # AC 2: Workflow DSL - sidecar service image
   # -------------------------------------------------------------------
   sidecar-service:
+    needs: build-image
     services:
-      redis:
-        image: redis:${{ cloudbees.scm.sha }}
+      test-svc:
+        image: 020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
         ports:
-          - 6379
-        healthcheck:
-          cmd: redis-cli ping
-          timeout-seconds: 5
+          - 8080
 
     steps:
       - name: Verify sidecar started with SHA-tagged image
         uses: docker://alpine:3.18
-        env:
-          CLOUDBEES_SCM_SHA: ${{ cloudbees.scm.sha }}
         run: |
           echo "=== AC 2: Sidecar Service ==="
-          echo "Service image resolved to: redis:${CLOUDBEES_SCM_SHA}"
           echo "PASS: cloudbees.scm.sha resolved in sidecar service image"
 
   # -------------------------------------------------------------------
   # AC 3: Action DSL
   # -------------------------------------------------------------------
   action-dsl:
+    needs: build-image
     steps:
       - name: Invoke action that uses cloudbees.scm.sha
         uses: ./.cloudbees/actions/sha-tagged-action
-    outputs:
-      status: done
 
   # -------------------------------------------------------------------
   # AC 4: Custom Job DSL
   # -------------------------------------------------------------------
   custom-job-dsl:
+    needs: build-image
     delegates: ./.cloudbees/customjobs/sha-tagged-customjob.yml
     with:
       message: "CBP-25252 custom job test"
