@@ -13,18 +13,18 @@ outputs:
 
 handlers:
   init:
-    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
     command: /bin/sh
-    args: -c "echo \"Custom Job DSL - cloudbees.scm.sha resolved in handler uses\" && echo \"$MESSAGE\" >> $CLOUDBEES_OUTPUTS/result"
+    args: -c "echo AC 4 Custom Job DSL - PASS && echo \"$MESSAGE\" >> $CLOUDBEES_OUTPUTS/result"
     env:
       MESSAGE: ${{ inputs.message }}
 
   callback:
-    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
     command: /bin/sh
     args: -c "echo callback handler with cloudbees.scm.sha"
 
   cancel:
-    uses: docker://alpine:${{ cloudbees.scm.sha }}
+    uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
     command: /bin/sh
     args: -c "echo cancel handler with cloudbees.scm.sha"
