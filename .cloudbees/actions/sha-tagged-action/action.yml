@@ -1,0 +1,12 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: sha-tagged-action
+description: Action that uses cloudbees.scm.sha to reference a container image
+
+runs:
+  using: composite
+  steps:
+    - name: Run from SHA-tagged image
+      uses: docker://alpine:${{ cloudbees.scm.sha }}
+      run: |
+        echo "Action DSL: cloudbees.scm.sha resolved in uses field"
