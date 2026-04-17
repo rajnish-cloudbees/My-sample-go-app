@@ -7,6 +7,7 @@ runs:
   using: composite
   steps:
     - name: Run from SHA-tagged image
-      uses: docker://alpine:${{ cloudbees.scm.sha }}
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
       run: |
-        echo "Action DSL: cloudbees.scm.sha resolved in uses field"
+        echo "=== AC 3: Action DSL ==="
+        echo "PASS: cloudbees.scm.sha resolved in action step uses"
