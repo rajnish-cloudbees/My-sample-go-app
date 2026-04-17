@@ -48,7 +48,8 @@ jobs:
   # AC 1: Workflow DSL - regular step uses
   # -------------------------------------------------------------------
   regular-step:
-    needs: build-image
+    needs:
+      - build-image
     steps:
       - name: Verify cloudbees.scm.sha resolves in step uses
         uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
@@ -60,7 +61,8 @@ jobs:
   # AC 2: Workflow DSL - sidecar service image
   # -------------------------------------------------------------------
   sidecar-service:
-    needs: build-image
+    needs:
+      - regular-step
     services:
       test-svc:
         image: 020229604682.dkr.ecr.us-east-1.amazonaws.com/testing/cbp-25252-test:${{ cloudbees.scm.sha }}
@@ -78,7 +80,8 @@ jobs:
   # AC 3: Action DSL
   # -------------------------------------------------------------------
   action-dsl:
-    needs: build-image
+    needs:
+      - sidecar-service
     steps:
       - name: Invoke action that uses cloudbees.scm.sha
         uses: ./.cloudbees/actions/sha-tagged-action
@@ -87,7 +90,8 @@ jobs:
   # AC 4: Custom Job DSL
   # -------------------------------------------------------------------
   custom-job-dsl:
-    needs: build-image
+    needs:
+      - action-dsl
     delegates: ./.cloudbees/customjobs/sha-tagged-customjob.yml
     with:
       message: "CBP-25252 custom job test"
@@ -97,9 +101,6 @@ jobs:
   # -------------------------------------------------------------------
   summary:
     needs:
-      - regular-step
-      - sidecar-service
-      - action-dsl
       - custom-job-dsl
     steps:
       - name: Report results
