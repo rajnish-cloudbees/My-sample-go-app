@@ -4,7 +4,6 @@ name: CBP-25252-cloudbees-scm-sha-in-uses
 
 on:
   push:
-  workflow_dispatch: {}  
 
 # -----------------------------------------------------------------------
 # CBP-25252: Verify cloudbees.scm.sha is supported in the 'uses' field
@@ -23,14 +22,12 @@ jobs:
   regular-step:
     steps:
       - name: Verify cloudbees.scm.sha resolves in uses
-        uses: docker://alpine:3.18
+        uses: docker://alpine:${{ cloudbees.scm.sha }}
         env:
           CLOUDBEES_SCM_SHA: ${{ cloudbees.scm.sha }}
-          FILE_SCM_SHA: ${{ file.scm.sha }}
         run: |
           echo "=== AC 1: Regular Step ==="
           echo "cloudbees.scm.sha = ${CLOUDBEES_SCM_SHA}"
-          echo "file.scm.sha     = ${FILE_SCM_SHA}"
 
           if [ -z "${CLOUDBEES_SCM_SHA}" ]; then
             echo "FAIL: cloudbees.scm.sha is empty"
